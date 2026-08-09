@@ -11,51 +11,93 @@
   <meta name="theme-color" content="#6b9e3f">
   <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAFCUlEQVR4nO3dQW7cOBCFYTrIveKrZB0fx+v4Kj5aFgSERrqfmlKLrFfk/yGrQTAjlX6XZI2Tfvvz91cBHvkRfQDwRRyQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAPSz+gDCPP5+7v9N398vfc6DmNvi/xB6kMptFghl5njuDwIZdZQJoxjWBP3JqtknjgCm7g3RyUzxGGVxa3sieSOwzaLW3kTyRpHiixuZUwkXxzpsriVK5Fkb0hTl1GyHX+azRH7FmvNd2g54rjk2lx4PdyOpxP3OF68DAMugP8RnmYdxytzHzz0RIfazjeOc+MOH3TSw37IMY4J5jvBKRTDOE6M1W2mm+zn4hXH0WlajVLJe1JGL8HyDnHf0eP0eVHmsjlW+KG9dOdosTnSTe2c2HeyJ8THsUgZVa4+0vz0efYsNvVEwi98i+DN0TijacrYNJ5RbEORD6QmZewcRuB/euRhKGGbw3wuY5jvj/gH0h1zl1E5n2NMHC1fCs5Tu1bLmYYsj4A4KOOeZx/WtxXEGh0Ha0MxXB5D46CMfW59eN1WVi6jsprAuDhSvDBOYdgkjTaH1RdNIJ85DIrjaew+E3HwdBpjlofR5oCbEXGwNk5wWB5sDkjd42BtnBa+PNgckILjYG3si51P3zh48dVb1wlzW4EUGQf3lBaBU+oYB/eUMfrNOWxzsDbaLffT5/BHHJB6xcEDx0idph2zOXjgOCpkYtxWIBEHJOKARByQusSx//DM0+g5+3Pr8Q0LmwMScUAiDkirx7F/q178PW+av02wh5Zrv/2eBZ+jl47jkAUrIY7DbvfN3KEQx0vmXifEcY0p18nS3610uoqfv7/rrx7/8pFW3xwfX+/9rmL2dbL05qgyXrYxiKOUR318fL3XX53+/SmsflvZqOt3+88neIw4pNenJsz9f+1DPo5u/EjZHGcssk6I41VbKKqSvGuSOC4z3zohji6erpMUfD9vZQ5X3VOm+ryVvDfajDpNm5dgkIgDkvunQ6JM+emQPHaM0W/OkbcVlkeLwCnxzAGpbxzcWXrrOuHgzcGdZV/sfLitQOoeR/jnQuQV/mkkbA5II+JgeZwQvjYKmwM7BsXB8jjEYW0Uq81BH5XPHMbFwQuxqwybpNHmKE5fNFGsJjA0jpbkraYzWMu5j1zAozcHfShuZRS32wqsBMTB8rhnuDaK8+etrNOHZxnF/LayQh/O5+j+6ZDOs3td49mt+OmQi/dhXkYJv60s24d/GSXRH6Su05zgHXyi0OMfSA9d70STfejQ8Yd/JcTHUZbpI1cZpd/fCXZCyF+0NUbSU7PYHNXRiWRZIUnLKFabozpxyX2m+Z/s52IXRzm7EqzGOsEpFM84qqTzTXrYD/nGUV57qhg87kSH2s46jvLyU+eAufsf4WnucVSXfGNy4WVwO55OcsRROnzjGvvmzb+MkiiOKsu7jR0psqiMXoK1SDTZh3Idf7LNsUm3QnJlUWWNo0qRSMYsqtxxVLaJ5M2imiGOyiqR7FlU88SxCaxkjiY2E8axGVbJZE1sZo7j1ppvsV60Shz30v3Q3njrxoGnkr0hxUjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAekfx0gIWQn966sAAAAASUVORK5CYII=">
   <style>
+:root {
+  --bg: #EEF1F6;
+  --surface: #FFFFFF;
+  --surface-alt: #F4F6FA;
+  --text: #12161C;
+  --text-secondary: #667085;
+  --border: #E3E7EE;
+  --accent: #2F6D4F;
+  --accent-soft: #E6F0EA;
+  --danger: #DC2626;
+  --danger-soft: #FEE2E2;
+  --radius-lg: 20px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+}
+
 * {
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: 16px;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
-  max-width:1000px;
-    margin: 0;
-  background: #669d3440;
-  color: #1f2933;
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
   display: flex;
   justify-content: center;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .container {
   width: 100%;
-  max-width: 90%;
-  padding: 20px 0px;
+  max-width: 480px;
+  padding: var(--space-6) var(--space-4) 64px;
 }
 
 h1 {
-  font-size: 2.2rem;
-  margin-bottom: 30px;
-  font-weight: 600;
+  font-size: 1.75rem;
+  margin: 0 0 var(--space-6);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+h1::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--accent);
+  margin-right: 10px;
+  vertical-align: middle;
 }
 
 h2 {
-  margin-top: 0px;
-  font-size: 1.4rem;
+  margin: 0 0 var(--space-4);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 h3 {
-  margin-top: 40px;
-    margin-bottom: 15px;
-  font-size: 1.1rem;
-  color: #555;
+  margin: var(--space-6) 0 var(--space-3);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
 }
 
 .card {
-  background: white;
-  padding: 24px 20px;
-  border-radius: 12px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-  margin-bottom: 24px;
+  background: var(--surface);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 2px rgba(16,24,40,0.04), 0 8px 24px rgba(16,24,40,0.04);
+  margin-bottom: var(--space-4);
 }
 
 .column-container {
@@ -71,25 +113,26 @@ h3 {
 
 label {
   display: block;
-  font-size: 0.9rem;
-  margin-bottom: 10px;
-
-  color: #555;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+  color: var(--text-secondary);
 }
 
 input, select, button{
-  color: #474747;
-  background: #e5e7eb;
+  color: var(--text);
+  background: var(--surface-alt);
   width: 100%;
-  height: 48px;
-  border-radius: 8px;
+  height: 46px;
+  border-radius: var(--radius-sm);
   font-size: 0.9rem;
-
+  font-weight: 500;
 }
 
 input, select {
-  padding-left: 20px;
-  border: 1px solid #ddd;
+  padding-left: var(--space-4);
+  border: 1px solid var(--border);
+  background: var(--surface);
 }
       
 .dateselect{
@@ -98,48 +141,71 @@ input, select {
 
 button {
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: 0.2s;
+  transition: background 0.15s ease, transform 0.1s ease;
+  font-weight: 600;
+}
 
+button:active {
+  transform: scale(0.97);
 }
 
 button:hover {
-  background: #d1d5db;
+  background: #E4E7EC;
 }
 
 .entry {
   display: flex;
   justify-content: space-between;
       align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #bababa;
-  font-size: 0.95rem;
+  padding: var(--space-3) var(--space-1);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+.entry:last-child {
+  border-bottom: none;
 }
 
 .entry button {
   background: transparent;
-  color: #707070;
-  font-size: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
   width: auto;
+  height: auto;
+  padding: var(--space-1) var(--space-2);
+}
+
+.entry button:hover {
+  background: var(--surface-alt);
 }
 
 .quick-buttons{
     margin-bottom: 0px;
     display: flex;
-    gap: 20px;   
+    gap: var(--space-2);   
     width: 100%;
+    flex-wrap: wrap;
 }
 
 .quick-buttons button {
-      flex: 1;              /* alle Buttons gleich breit */
+      flex: 1 1 72px;
+    min-width: 56px;
     padding-left: 5px;
     padding-right: 5px;
+    background: var(--accent-soft);
+    color: var(--accent);
     }
+
+.quick-buttons button:hover {
+  background: #D8EAE0;
+}
 
 
 .summary {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
 }
 
 .summary div {
@@ -148,17 +214,18 @@ button:hover {
 
 .summary-grid-container{
   display: grid;
-  gap: 5px;
-  column-gap: 40px;  
+  gap: var(--space-1);
+  column-gap: var(--space-5);  
   grid-template-columns: auto auto auto;
   justify-content: left;
   align-items: center;
+  font-size: 0.9rem;
 }
 
 .grid-container{
   display: grid;
-  gap: 40px;
-  grid-template-columns: 47% 47%;
+  gap: var(--space-4);
+  grid-template-columns: 1fr 1fr;
   justify-content: space-between; 
 }
 
@@ -170,18 +237,19 @@ button:hover {
 }
 
 .btn-delete-all {
-  background: #fee2e2;
-  color: #b91c1c;
+  background: var(--danger-soft);
+  color: var(--danger);
   font-size: 0.85rem;
 }
 
 .btn-delete-all:hover {
-  background: #fecaca;
+  background: #FBD3D3;
 }
 
 .categoryEditor {
-    border-left: 5px solid #dbdbdb;
-    padding-left: 40px;
+    border-left: 3px solid var(--border);
+    padding-left: var(--space-5);
+    margin-top: var(--space-3);
 }
 
 .categoryEditor input {
@@ -193,8 +261,21 @@ button:hover {
 
 .stripe-diagram {
     display: flex;
-    column-gap: 5px;
+    column-gap: var(--space-1);
     align-items: flex-end;
+}
+
+.bar-v {
+  width: 26px;
+  border-radius: 6px 6px 2px 2px;
+  transition: height 0.3s ease;
+}
+
+.bar-h {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--accent);
+  transition: width 0.3s ease;
 }
 
       
@@ -484,11 +565,10 @@ function renderSummaries() {
   });
 
   totalDiv.innerHTML = `
-    <span style="
-        font-size: 2rem;
-        color: #6e7667;
-        font-weight: 500;
-    "> ${(total/60).toFixed(2)} Stunden </span> (Gesamtzeit)
+    <div style="background: var(--accent-soft); border-radius: var(--radius-md); padding: 20px;">
+      <div style="font-size: 2.25rem; font-weight: 700; color: var(--accent); letter-spacing: -0.02em; line-height: 1;">${(total/60).toFixed(2)} h</div>
+      <div style="font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-secondary); margin-top: 6px;">Gesamtzeit</div>
+    </div>
   `;
 
   weeklyDiv.innerHTML = "<h3>Wochenübersicht</h3>";
@@ -504,7 +584,7 @@ function renderSummaries() {
     monthlyDiv.innerHTML += `
     <div>${label}: </div> 
     <div>${(minutes/60).toFixed(2)} h</div>
-    <div style="background-color: lightgrey; width: ${minutes/maxMonthMinutes*200}px; height: 20px;"></div>
+    <div class="bar-h" style="width: ${minutes/maxMonthMinutes*160}px;"></div>
     `;
   });
 
@@ -528,7 +608,7 @@ function renderSummaries() {
   const col = getCategoryColor(category);
 
   categoryDiagramDiv.innerHTML += `
-    <div style="background-color: ${hexToRgba(col, 0.3)}; height: ${categoryTotal/8}px; width: 40px;"></div>
+    <div class="bar-v" style="background-color: ${hexToRgba(col, 0.85)}; height: ${categoryTotal/8}px;"></div>
   `;
 
   categoryDiv.innerHTML += `
@@ -571,8 +651,11 @@ function renderEntries() {
     const div = document.createElement("div");
     div.className = "entry";
     div.innerHTML = `
-      <span> ${entry.date} | ${entry.category} | ${entry.time} Minuten </span>
-        <button onclick="deleteEntryById('${entry.id}')">✖️</button>    `;
+      <span style="display:flex; align-items:center; gap:8px;">
+        <span style="width:8px; height:8px; border-radius:50%; background:${getCategoryColor(entry.category)}; flex-shrink:0;"></span>
+        ${entry.date} · ${entry.category} · ${entry.time} Min.
+      </span>
+        <button onclick="deleteEntryById('${entry.id}')" aria-label="Eintrag löschen">✕</button>    `;
     entriesDiv.appendChild(div);
   });
 
