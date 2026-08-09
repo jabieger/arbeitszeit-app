@@ -1,0 +1,1143 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Arbeitszeit Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Arbeitszeit">
+  <meta name="theme-color" content="#6b9e3f">
+  <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAFCUlEQVR4nO3dQW7cOBCFYTrIveKrZB0fx+v4Kj5aFgSERrqfmlKLrFfk/yGrQTAjlX6XZI2Tfvvz91cBHvkRfQDwRRyQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAPSz+gDCPP5+7v9N398vfc6DmNvi/xB6kMptFghl5njuDwIZdZQJoxjWBP3JqtknjgCm7g3RyUzxGGVxa3sieSOwzaLW3kTyRpHiixuZUwkXxzpsriVK5Fkb0hTl1GyHX+azRH7FmvNd2g54rjk2lx4PdyOpxP3OF68DAMugP8RnmYdxytzHzz0RIfazjeOc+MOH3TSw37IMY4J5jvBKRTDOE6M1W2mm+zn4hXH0WlajVLJe1JGL8HyDnHf0eP0eVHmsjlW+KG9dOdosTnSTe2c2HeyJ8THsUgZVa4+0vz0efYsNvVEwi98i+DN0TijacrYNJ5RbEORD6QmZewcRuB/euRhKGGbw3wuY5jvj/gH0h1zl1E5n2NMHC1fCs5Tu1bLmYYsj4A4KOOeZx/WtxXEGh0Ha0MxXB5D46CMfW59eN1WVi6jsprAuDhSvDBOYdgkjTaH1RdNIJ85DIrjaew+E3HwdBpjlofR5oCbEXGwNk5wWB5sDkjd42BtnBa+PNgckILjYG3si51P3zh48dVb1wlzW4EUGQf3lBaBU+oYB/eUMfrNOWxzsDbaLffT5/BHHJB6xcEDx0idph2zOXjgOCpkYtxWIBEHJOKARByQusSx//DM0+g5+3Pr8Q0LmwMScUAiDkirx7F/q178PW+av02wh5Zrv/2eBZ+jl47jkAUrIY7DbvfN3KEQx0vmXifEcY0p18nS3610uoqfv7/rrx7/8pFW3xwfX+/9rmL2dbL05qgyXrYxiKOUR318fL3XX53+/SmsflvZqOt3+88neIw4pNenJsz9f+1DPo5u/EjZHGcssk6I41VbKKqSvGuSOC4z3zohji6erpMUfD9vZQ5X3VOm+ryVvDfajDpNm5dgkIgDkvunQ6JM+emQPHaM0W/OkbcVlkeLwCnxzAGpbxzcWXrrOuHgzcGdZV/sfLitQOoeR/jnQuQV/mkkbA5II+JgeZwQvjYKmwM7BsXB8jjEYW0Uq81BH5XPHMbFwQuxqwybpNHmKE5fNFGsJjA0jpbkraYzWMu5j1zAozcHfShuZRS32wqsBMTB8rhnuDaK8+etrNOHZxnF/LayQh/O5+j+6ZDOs3td49mt+OmQi/dhXkYJv60s24d/GSXRH6Su05zgHXyi0OMfSA9d70STfejQ8Yd/JcTHUZbpI1cZpd/fCXZCyF+0NUbSU7PYHNXRiWRZIUnLKFabozpxyX2m+Z/s52IXRzm7EqzGOsEpFM84qqTzTXrYD/nGUV57qhg87kSH2s46jvLyU+eAufsf4WnucVSXfGNy4WVwO55OcsRROnzjGvvmzb+MkiiOKsu7jR0psqiMXoK1SDTZh3Idf7LNsUm3QnJlUWWNo0qRSMYsqtxxVLaJ5M2imiGOyiqR7FlU88SxCaxkjiY2E8axGVbJZE1sZo7j1ppvsV60Shz30v3Q3njrxoGnkr0hxUjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAekfx0gIWQn966sAAAAASUVORK5CYII=">
+  <style>
+:root {
+  --bg: #EEF1F6;
+  --surface: #FFFFFF;
+  --surface-alt: #F4F6FA;
+  --text: #12161C;
+  --text-secondary: #667085;
+  --border: #E3E7EE;
+  --accent: #2F6D4F;
+  --accent-soft: #E6F0EA;
+  --danger: #DC2626;
+  --danger-soft: #FEE2E2;
+  --radius-lg: 20px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.container {
+  width: 100%;
+  max-width: 480px;
+  padding: var(--space-6) var(--space-4) 64px;
+}
+
+h1 {
+  font-size: 1.75rem;
+  margin: 0 0 var(--space-6);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+h1::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--accent);
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+h2 {
+  margin: 0 0 var(--space-4);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  margin: var(--space-6) 0 var(--space-3);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.card {
+  background: var(--surface);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 2px rgba(16,24,40,0.04), 0 8px 24px rgba(16,24,40,0.04);
+  margin-bottom: var(--space-4);
+}
+
+.column-container {
+      display: flex;
+      gap: 40px; /* Abstand zwischen den Spalten */
+    }
+
+.column {
+      flex: 1; /* beide Spalten gleich breit */
+      padding: 0px;
+      border: 1px solid #ffffff;
+    }
+
+label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+  color: var(--text-secondary);
+}
+
+input, select, button{
+  color: var(--text);
+  background: var(--surface-alt);
+  width: 100%;
+  height: 46px;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+input, select {
+  padding-left: var(--space-4);
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+      
+.dateselect{
+    padding: 0px;
+  }
+
+button {
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+  font-weight: 600;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+button:hover {
+  background: #E4E7EC;
+}
+
+.entry {
+  display: flex;
+  justify-content: space-between;
+      align-items: center;
+  padding: var(--space-3) var(--space-1);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+.entry:last-child {
+  border-bottom: none;
+}
+
+.entry button {
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  width: auto;
+  height: auto;
+  padding: var(--space-1) var(--space-2);
+}
+
+.entry button:hover {
+  background: var(--surface-alt);
+}
+
+.quick-buttons{
+    margin-bottom: 0px;
+    display: flex;
+    gap: var(--space-2);   
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.quick-buttons button {
+      flex: 1 1 72px;
+    min-width: 56px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    }
+
+.quick-buttons button:hover {
+  background: #D8EAE0;
+}
+
+
+.summary {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.summary div {
+  margin: 4px 0;
+}
+
+.summary-grid-container{
+  display: grid;
+  gap: var(--space-1);
+  column-gap: var(--space-5);  
+  grid-template-columns: auto auto auto;
+  justify-content: left;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.grid-container{
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: 1fr 1fr;
+  justify-content: space-between; 
+}
+
+.entries-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.btn-delete-all {
+  background: var(--danger-soft);
+  color: var(--danger);
+  font-size: 0.85rem;
+}
+
+.btn-delete-all:hover {
+  background: #FBD3D3;
+}
+
+.categoryEditor {
+    border-left: 3px solid var(--border);
+    padding-left: var(--space-5);
+    margin-top: var(--space-3);
+}
+
+.categoryEditor input {
+    height: 48px; 
+    width: 100%; 
+    border-color: grey;
+    background-color:white;
+}
+
+.stripe-diagram {
+    display: flex;
+    column-gap: var(--space-1);
+    align-items: flex-end;
+}
+
+.bar-v {
+  width: 26px;
+  border-radius: 6px 6px 2px 2px;
+  transition: height 0.3s ease;
+}
+
+.bar-h {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+      
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>Arbeitszeit</h1>
+
+<div class="card">
+    <h2 id="headerSelectedCat"> Neuer Eintrag </h2>
+
+    <div class="grid-container">
+
+    <!--
+    <div>
+        <label>Gewählte Kategorie</label>
+        <button style="text-align:left; padding-left: 20px;" id="selectedCategory"></button>
+    </div>
+    -->
+
+    <div>
+        <label>Kategorie & Aufgabe</label>
+        <select id="categoryTask"></select>
+    </div>
+        
+    <div>
+        <label>Datum</label>
+        <input class="dateselect" type="date" id="date">
+    </div>
+
+
+
+    <div style="grid-column-end: span 2;">
+        <label>Schnellauswahl</label>
+        <div class="quick-buttons">
+            <button onclick="addTime(15)">15</button>
+            <button onclick="addTime(30)">30</button>
+            <button onclick="addTime(45)">45</button>
+            <button onclick="addTime(60)">1 h</button>
+            <button onclick="addTime(90)">1,5 h</button>
+            <button onclick="addTime(120)">2 h</button>
+            <button onclick="toggleCustomTime()"> ... </button>
+        </div>
+    </div>
+
+    <div id="customTimeContainer" style="display:none; grid-column-end: span 2;">
+      <label>Dauer eingeben:</label>
+        <input type="number" id="customTime" placeholder="Minuten" style="
+            height: 48px; 
+            width: 100%; 
+            border-color: grey;
+            background-color:white;
+            margin-bottom: 10px;">
+        <button style="width:100%; " onclick="addCustomTime()">Hinzufügen</button>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Auswertung</h2>
+  <div id="totalSummary" class="summary"></div>
+  <div id="weeklySummary" class="summary" style="display:none;"></div>
+  <h3> Monatsübersicht </h3>    
+  <div id="monthlySummary" class="summary-grid-container"></div>
+  <h3> Kategorie & Aufgaben </h3>  
+  <div style="
+    display: flex;
+    column-gap: 1rem;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+      ">
+      <div id="categorySummaryDiagram" class="stripe-diagram"></div>
+      <div id="categorySummary" class="summary-grid-container"></div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Einträge</h2>
+  <button onclick="toggleEntries()" id="toggleEntriesBtn" style="margin-bottom:20px;">
+    Alle anzeigen
+  </button>
+  <div id="entries"></div>
+</div>
+
+<div class="card">
+  <h2>Import / Export</h2>
+    <div class="grid-container">
+  <button onclick="exportCSV()">Export CSV</button>
+  <button onclick="handleImport()">Import CSV</button>
+    <button onclick="document.getElementById('csvFile').click();" style="
+        grid-column-end: span 2;
+        border: 1px solid grey;
+        background-color:white;">Datei wählen</button>
+    <input type="file" id="csvFile" accept=".csv" style="
+        display:none;    
+        ">
+    </div>
+</div>
+
+<div class="card">
+  <h2>Optionen</h2>
+
+    <div class="grid-container">
+  <button onclick="toggleCategoryEditor()" style="width:100%; grid-column-end: span 2;">
+    Kategorien bearbeiten
+  </button>
+
+  <div class="categoryEditor" id="categoryEditor" style="display:none; grid-column-end: span 2;">
+    
+    <h3>Kategorien</h3>
+    <div id="categoryList"></div>
+
+    <div style="margin-top:20px;">
+      <input type="text" id="newCategory" placeholder="Neue Kategorie">
+      <button onclick="addCategory()" style="width:100%; margin-top:10px;">
+        Hinzufügen
+      </button>
+    </div>
+
+
+      <h3>Aufgaben pro Kategorie</h3>
+    <label>Kategorie auswählen</label>
+    <select id="taskCategorySelect"></select>
+    
+    <div id="taskList"></div>
+    
+    <div style="margin-top:20px;">
+      <input type="text" id="newTask" placeholder="Neue Aufgabe">
+      <button onclick="addTask()" style="width:100%; margin-top:10px;">
+        Aufgabe hinzufügen
+      </button>
+    </div>
+
+  </div>
+
+  <button class="btn-delete-all" onclick="deleteAllEntries()" style="width:100%; grid-column-end: span 2;">
+    🗑 Alle Einträge löschen
+  </button>
+    </div>
+</div>
+
+</div>
+
+<script defer>
+  const dateInput = document.getElementById("date");
+  const entriesDiv = document.getElementById("entries");
+  const weeklyDiv = document.getElementById("weeklySummary");
+  const monthlyDiv = document.getElementById("monthlySummary");
+  const totalDiv = document.getElementById("totalSummary");
+
+  const today = new Date().toISOString().split("T")[0];
+  dateInput.value = today;
+
+  let entries = JSON.parse(localStorage.getItem("entries")) || [];
+  let showAllEntries = false;
+
+let categories = JSON.parse(localStorage.getItem("categories")) || [
+  "ASV",
+  "Moodle",
+  "WebUntis",
+  "Sonstiges"
+];
+
+function saveCategories() {
+  localStorage.setItem("categories", JSON.stringify(categories));
+}
+
+let tasksByCategory = JSON.parse(localStorage.getItem("tasksByCategory")) || {
+  "ASV": ["Administration", "Datenpflege", "Sonstiges"],
+  "Moodle": ["Administration", "Sonstiges"],
+  "WebUntis": ["Nutzerverwaltung", "Administration"],
+  "Sonstiges": ["Allgemein", "Sekretariat", "Verwaltungsnetz", "Anmeldung 5er"]
+};
+
+function saveTasks() {
+  localStorage.setItem("tasksByCategory", JSON.stringify(tasksByCategory));
+}
+
+    // Feste Palette, aus der neue Kategorien automatisch eine Farbe bekommen
+    const colorPalette = [
+      "#2e68a7", "#F2C94C", "#fa6033", "#707070",
+      "#8e44ad", "#16a085", "#c0392b", "#2980b9",
+      "#27ae60", "#e67e22", "#34495e", "#d35400"
+    ];
+
+    let categoryColors = JSON.parse(localStorage.getItem("categoryColors")) || {};
+
+    function saveCategoryColors() {
+      localStorage.setItem("categoryColors", JSON.stringify(categoryColors));
+    }
+
+    function getCategoryColor(category) {
+      if (categoryColors[category]) return categoryColors[category];
+
+      const used = Object.values(categoryColors);
+      const free = colorPalette.find(c => !used.includes(c));
+      const color = free || colorPalette[Object.keys(categoryColors).length % colorPalette.length];
+
+      categoryColors[category] = color;
+      saveCategoryColors();
+      return color;
+    }
+
+    // Bestehenden vier Standardkategorien ihre bisherigen Farben zuweisen,
+    // damit sich für frühere Nutzer nichts sichtbar ändert
+    if (Object.keys(categoryColors).length === 0) {
+      categoryColors = {
+        "ASV": "#2e68a7",
+        "Moodle": "#F2C94C",
+        "WebUntis": "#fa6033",
+        "Sonstiges": "#707070"
+      };
+      saveCategoryColors();
+    }
+
+  function saveEntries() {
+    localStorage.setItem("entries", JSON.stringify(entries));
+  }
+
+
+function getWeekNumber(dateStr) {
+    const date = new Date(dateStr);
+    const tempDate = new Date(date.getTime());
+    tempDate.setHours(0, 0, 0, 0);
+    tempDate.setDate(tempDate.getDate() + 3 - (tempDate.getDay() + 6) % 7);
+    const week1 = new Date(tempDate.getFullYear(), 0, 4);
+    const weekNumber = 1 + Math.round(
+          ((tempDate - week1) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7
+    );
+    return `KW ${weekNumber} (${tempDate.getFullYear()})`;
+  }
+
+function hexToRgba(hex, alpha) {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+function renderSummaries() {
+  let weekly = {};   // key: "YYYY-WW" -> { label, minutes }
+  let monthly = {};  // key: "YYYY-MM" -> { label, minutes }
+  let total = 0;
+
+  let categoryTaskSummary = {}; 
+// Struktur: { Kategorie: { Aufgabe: Minuten } } 
+
+
+  entries.forEach(entry => {
+    const weekLabel = getWeekNumber(entry.date);
+    const dateObj = new Date(entry.date);
+
+    // Sortierbarer Wochenschlüssel: Jahr + KW-Nummer (zweistellig)
+    const tempDate = new Date(dateObj.getTime());
+    tempDate.setHours(0, 0, 0, 0);
+    tempDate.setDate(tempDate.getDate() + 3 - (tempDate.getDay() + 6) % 7);
+    const week1 = new Date(tempDate.getFullYear(), 0, 4);
+    const weekNum = 1 + Math.round(((tempDate - week1) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
+    const weekKey = `${tempDate.getFullYear()}-${String(weekNum).padStart(2, "0")}`;
+
+    // Sortierbarer Monatsschlüssel: "YYYY-MM"
+    const monthKey = entry.date.slice(0, 7);
+    const monthLabel = dateObj.toLocaleString("de-DE", { year: "numeric", month: "long" });
+
+    if (!weekly[weekKey]) weekly[weekKey] = { label: weekLabel, minutes: 0 };
+    weekly[weekKey].minutes += entry.time;
+
+    if (!monthly[monthKey]) monthly[monthKey] = { label: monthLabel, minutes: 0 };
+    monthly[monthKey].minutes += entry.time;
+      
+    total += entry.time;
+
+    // Kategorie + Aufgabe
+    if (!categoryTaskSummary[entry.category]) {
+      categoryTaskSummary[entry.category] = {};
+    }
+    
+    if (!categoryTaskSummary[entry.category][entry.task]) {
+      categoryTaskSummary[entry.category][entry.task] = 0;
+    }
+
+    categoryTaskSummary[entry.category][entry.task] += entry.time; 
+  });
+
+  totalDiv.innerHTML = `
+    <div style="background: var(--accent-soft); border-radius: var(--radius-md); padding: 20px;">
+      <div style="font-size: 2.25rem; font-weight: 700; color: var(--accent); letter-spacing: -0.02em; line-height: 1;">${(total/60).toFixed(2)} h</div>
+      <div style="font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-secondary); margin-top: 6px;">Gesamtzeit</div>
+    </div>
+  `;
+
+  weeklyDiv.innerHTML = "<h3>Wochenübersicht</h3>";
+  Object.keys(weekly).sort().forEach(key => {
+    const { label, minutes } = weekly[key];
+    weeklyDiv.innerHTML += `<div>${label}: ${(minutes/60).toFixed(2)} h</div>`;
+  });
+
+  monthlyDiv.innerHTML = "";
+  const maxMonthMinutes = Math.max(...Object.values(monthly).map(m => m.minutes));
+  Object.keys(monthly).sort().forEach(key => {
+    const { label, minutes } = monthly[key];
+    monthlyDiv.innerHTML += `
+    <div>${label}: </div> 
+    <div>${(minutes/60).toFixed(2)} h</div>
+    <div class="bar-h" style="width: ${minutes/maxMonthMinutes*160}px;"></div>
+    `;
+  });
+
+    // ------------------------
+    // Kategorie-Auswertung
+
+  const categoryDiv = document.getElementById("categorySummary");    
+  categoryDiv.innerHTML = "";
+  const categoryDiagramDiv = document.getElementById("categorySummaryDiagram");    
+  categoryDiagramDiv.innerHTML = "";
+
+    categories.forEach(category => {
+  if (!categoryTaskSummary[category]) return;
+
+  const tasks = categoryTaskSummary[category];
+
+  let categoryTotal = 0;
+  Object.values(tasks).forEach(min => categoryTotal += min);
+
+  // Balkendiagramm
+  const col = getCategoryColor(category);
+
+  categoryDiagramDiv.innerHTML += `
+    <div class="bar-v" style="background-color: ${hexToRgba(col, 0.85)}; height: ${categoryTotal/8}px;"></div>
+  `;
+
+  categoryDiv.innerHTML += `
+    <div style="margin-top:15px;"> <strong>${category}: </strong> </div> 
+    <div style="margin-top:15px;"> <strong> ${(categoryTotal/60).toFixed(2)} h </strong> </div>
+    <div></div>
+  `;
+
+  // Aufgaben optional auch sortieren:
+  const sortedTasks = tasksByCategory[category] || Object.keys(tasks);
+
+  sortedTasks.forEach(task => {
+    if (!tasks[task]) return;
+
+    categoryDiv.innerHTML += `
+      <div style="padding-left:20px;"> ${task || "(keine Aufgabe)"}: </div>
+      <div> ${(tasks[task]/60).toFixed(2)} h </div>
+      <div></div>
+    `;
+  });
+});
+}
+
+function toggleEntries() {
+  showAllEntries = !showAllEntries;
+
+  const btn = document.getElementById("toggleEntriesBtn");
+  btn.textContent = showAllEntries ? "Nur letzte 5 anzeigen" : "Alle anzeigen";
+
+  renderEntries();
+}
+
+function renderEntries() {
+  entries.sort((a, b) => b.date.localeCompare(a.date));
+  entriesDiv.innerHTML = "";
+
+  const entriesToShow = showAllEntries ? entries : entries.slice(0, 5);
+
+  entriesToShow.forEach((entry, index) => {
+    const div = document.createElement("div");
+    div.className = "entry";
+    div.innerHTML = `
+      <span style="display:flex; align-items:center; gap:8px;">
+        <span style="width:8px; height:8px; border-radius:50%; background:${getCategoryColor(entry.category)}; flex-shrink:0;"></span>
+        ${entry.date} · ${entry.category} · ${entry.time} Min.
+      </span>
+        <button onclick="deleteEntryById('${entry.id}')" aria-label="Eintrag löschen">✕</button>    `;
+    entriesDiv.appendChild(div);
+  });
+
+  renderSummaries();
+}
+
+  function generateId() {
+      return Date.now() + "_" + Math.floor(Math.random() * 1000000);
+    }
+
+function addTime(minutes) {
+  const combined = document.getElementById("categoryTask").value;
+  const [category, task] = combined.split("||");
+
+  const date = dateInput.value;
+
+  const newEntry = {
+    id: generateId(),
+    category,
+    task,
+    date,
+    time: minutes
+  };
+
+  entries.push(newEntry);
+  saveEntries();
+  renderEntries();
+}
+
+  function addCustomTime() {
+    const custom = document.getElementById("customTime").value;
+    if (!custom || custom <= 0) return;
+
+    addTime(parseInt(custom));
+    document.getElementById("customTime").value = "";
+  }
+
+  function deleteEntry(index) {
+    entries.splice(index, 1);
+    saveEntries();
+    renderEntries();
+  }
+
+function deleteEntryById(id) {
+  entries = entries.filter(e => e.id !== id);
+  saveEntries();
+  renderEntries();
+}
+
+  function deleteAllEntries() {
+    if (entries.length === 0) {
+      alert("Es sind keine Einträge vorhanden.");
+      return;
+    }
+    const confirmed = confirm("Möchtest du wirklich alle Einträge löschen? Diese Aktion kann nicht rückgängig gemacht werden.");
+    if (confirmed) {
+      entries = [];
+      saveEntries();
+      renderEntries();
+    }
+  }
+
+  renderEntries();
+
+function csvEscape(field) {
+  field = field == null ? "" : String(field);
+  if (/[;"\n]/.test(field)) {
+    field = '"' + field.replace(/"/g, '""') + '"';
+  }
+  return field;
+}
+
+function exportCSV() {
+
+  let csv = "";
+
+  // =========================
+  // Kategorien
+  // =========================
+
+  csv += "[CATEGORIES]\n";
+
+  categories.forEach(cat => {
+    csv += `${csvEscape(cat)}\n`;
+  });
+
+  csv += "\n";
+
+  // =========================
+  // Aufgaben
+  // =========================
+
+  csv += "[TASKS]\n";
+
+  Object.keys(tasksByCategory).forEach(category => {
+
+    tasksByCategory[category].forEach(task => {
+      csv += `${csvEscape(category)};${csvEscape(task)}\n`;
+    });
+
+  });
+
+  csv += "\n";
+
+  // =========================
+  // Einträge
+  // =========================
+
+  csv += "[ENTRIES]\n";
+  csv += "ID;Datum;Kategorie;Aufgabe;Minuten\n";
+
+  entries.forEach(e => {
+
+    csv += `${csvEscape(e.id)};${csvEscape(e.date)};${csvEscape(e.category)};${csvEscape(e.task || "")};${csvEscape(e.time)}\n`;
+
+  });
+
+  // Datei speichern
+  const blob = new Blob([csv], {
+    type: "text/csv;charset=utf-8;"
+  });
+
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "arbeitszeit.csv";
+  link.click();
+
+  URL.revokeObjectURL(url);
+}
+
+function handleImport() {
+  const fileInput = document.getElementById("csvFile");
+  if (!fileInput.files.length) {
+    alert("Bitte eine CSV-Datei auswählen.");
+    return;
+  }
+
+  importCSV(fileInput.files[0]);
+}
+
+function parseCSVLine(line) {
+  const result = [];
+  let cur = "";
+  let inQuotes = false;
+
+  for (let i = 0; i < line.length; i++) {
+    const char = line[i];
+
+    if (inQuotes) {
+      if (char === '"') {
+        if (line[i + 1] === '"') { cur += '"'; i++; }
+        else { inQuotes = false; }
+      } else {
+        cur += char;
+      }
+    } else {
+      if (char === '"') { inQuotes = true; }
+      else if (char === ";") { result.push(cur); cur = ""; }
+      else { cur += char; }
+    }
+  }
+
+  result.push(cur);
+  return result;
+}
+
+function importCSV(file) {
+
+  const reader = new FileReader();
+
+  reader.onload = function(event) {
+
+    const text = event.target.result;
+    const lines = text.split("\n");
+
+    let mode = "";
+
+    lines.forEach(line => {
+
+      line = line.trim();
+
+      if (!line) return;
+
+      // Abschnitt erkennen
+      if (line === "[CATEGORIES]") {
+        mode = "categories";
+        return;
+      }
+
+      if (line === "[TASKS]") {
+        mode = "tasks";
+        return;
+      }
+
+      if (line === "[ENTRIES]") {
+        mode = "entries";
+        return;
+      }
+
+      // =========================
+      // Kategorien
+      // =========================
+
+      if (mode === "categories") {
+
+        const [cat] = parseCSVLine(line);
+
+        if (!categories.includes(cat)) {
+          categories.push(cat);
+        }
+
+      }
+
+      // =========================
+      // Aufgaben
+      // =========================
+
+      else if (mode === "tasks") {
+
+        const [category, task] = parseCSVLine(line);
+
+        if (!tasksByCategory[category]) {
+          tasksByCategory[category] = [];
+        }
+
+        if (!tasksByCategory[category].includes(task)) {
+          tasksByCategory[category].push(task);
+        }
+
+      }
+
+      // =========================
+      // Einträge
+      // =========================
+
+      else if (mode === "entries") {
+
+        // Header überspringen
+        if (line.startsWith("ID;")) return;
+
+        const [id, date, category, task, time] = parseCSVLine(line);
+
+        if (!id || !date || !category || !time) return;
+
+        const minutes = parseInt(time?.trim());
+        
+        if (isNaN(minutes)) return;
+        
+        const entry = {
+          id: id.trim(),
+          date: date.trim(),
+          category: category.trim(),
+          task: task ? task.trim() : "",
+          time: minutes
+        };
+
+        // Duplikate verhindern
+        const exists = entries.some(e => e.id === entry.id);
+
+        if (!exists) {
+          entries.push(entry);
+        }
+
+      }
+
+    });
+
+    saveCategories();
+    saveTasks();
+    saveEntries();
+
+    renderCategoryTaskDropdown();
+    renderCategoryList();
+    renderTaskCategorySelect();
+    renderEntries();
+
+    alert("Import erfolgreich.");
+  };
+
+  reader.readAsText(file);
+}
+
+function toggleCustomTime() {
+  const container = document.getElementById("customTimeContainer");
+
+  if (container.style.display === "none" || container.style.display === "") {
+    container.style.display = "block";
+  } else {
+    container.style.display = "none";
+  }
+}
+
+    
+
+function renderCategoryTaskDropdown() {
+  const select = document.getElementById("categoryTask");
+  select.innerHTML = "";
+
+  categories.forEach(cat => {
+    const optgroup = document.createElement("optgroup");
+    optgroup.label = cat;
+
+    const tasks = tasksByCategory[cat] || [];
+
+    tasks.forEach(task => {
+      const option = document.createElement("option");
+      option.value = `${cat}||${task}`; // wichtig!
+      option.textContent = task;
+      optgroup.appendChild(option);
+    });
+
+    // Falls keine Tasks vorhanden → Kategorie selbst auswählbar
+    if (tasks.length === 0) {
+      const option = document.createElement("option");
+      option.value = `${cat}||`;
+      option.textContent = "(keine Aufgabe)";
+      optgroup.appendChild(option);
+    }
+
+    select.appendChild(optgroup);
+  });
+}
+    
+    function toggleCategoryEditor() {
+  const div = document.getElementById("categoryEditor");
+  div.style.display = div.style.display === "none" ? "block" : "none";
+  renderCategoryList();
+    renderTaskCategorySelect();
+}
+
+function renderCategoryList() {
+  const list = document.getElementById("categoryList");
+  list.innerHTML = "";
+
+  categories.forEach((cat, index) => {
+    const div = document.createElement("div");
+    div.className = "entry";
+
+    div.innerHTML = `
+      <span>${cat}</span>
+      <button onclick="deleteCategory(${index})">✖️</button>
+    `;
+
+    list.appendChild(div);
+  });
+}
+
+function addCategory() {
+  const input = document.getElementById("newCategory");
+  const value = input.value.trim();
+
+  if (!value) return;
+
+  if (categories.includes(value)) {
+    alert("Kategorie existiert bereits.");
+    return;
+  }
+
+    tasksByCategory[value] = [];
+    saveTasks();
+    renderTaskCategorySelect();
+
+  categories.push(value);
+  saveCategories();
+  renderCategoryList();
+    renderCategoryTaskDropdown();
+
+  input.value = "";
+}
+
+function deleteCategory(index) {
+    const cat = categories[index];
+
+    const affectedCount = entries.filter(e => e.category === cat).length;
+
+    if (affectedCount > 0) {
+      const confirmed = confirm(
+        `Die Kategorie "${cat}" hat noch ${affectedCount} Zeiteintrag/-einträge. ` +
+        `Diese bleiben erhalten und zählen weiter zur Gesamtzeit, tauchen aber nicht mehr ` +
+        `in der Kategorie-Auswertung auf. Kategorie trotzdem löschen?`
+      );
+      if (!confirmed) return;
+    }
+
+    categories.splice(index, 1);
+    delete tasksByCategory[cat];
+    delete categoryColors[cat];
+    saveTasks();
+    saveCategoryColors();
+    renderTaskCategorySelect();
+  saveCategories();
+  renderCategoryList();
+    renderEntries();
+}
+
+
+    function renderTaskCategorySelect() {
+      const select = document.getElementById("taskCategorySelect");
+      select.innerHTML = "";
+    
+      categories.forEach(cat => {
+        const option = document.createElement("option");
+        option.value = cat;
+        option.textContent = cat;
+        select.appendChild(option);
+      });
+    
+      renderTaskList();
+    }
+
+    function renderTaskList() {
+      const category = document.getElementById("taskCategorySelect").value;
+      const list = document.getElementById("taskList");
+      list.innerHTML = "";
+    
+      const tasks = tasksByCategory[category] || [];
+    
+      tasks.forEach((task, index) => {
+        const div = document.createElement("div");
+        div.className = "entry";
+    
+        div.innerHTML = `
+          <span>${task}</span>
+          <button onclick="deleteTask('${category}', ${index})">✖️</button>
+        `;
+    
+        list.appendChild(div);
+      });
+    }
+
+    function addTask() {
+      const category = document.getElementById("taskCategorySelect").value;
+      const input = document.getElementById("newTask");
+      const value = input.value.trim();
+    
+      if (!value) return;
+    
+      if (!tasksByCategory[category]) {
+        tasksByCategory[category] = [];
+      }
+    
+      if (tasksByCategory[category].includes(value)) {
+        alert("Aufgabe existiert bereits.");
+        return;
+      }
+    
+      tasksByCategory[category].push(value);
+      saveTasks();
+    
+      input.value = "";
+      renderTaskList();
+    }
+
+    function deleteTask(category, index) {
+      tasksByCategory[category].splice(index, 1);
+      saveTasks();
+      renderTaskList();
+        renderCategoryTaskDropdown();    
+    }
+
+function updateSelectedCategory() {
+  const combined = document.getElementById("categoryTask").value;
+
+  if (!combined) return;
+
+  const [category] = combined.split("||");
+
+//  const button = document.getElementById("selectedCategory");
+//  button.textContent = category;
+
+  const header = document.getElementById("headerSelectedCat");
+  header.textContent = category;
+  header.style.color = getCategoryColor(category);
+}
+
+renderCategoryTaskDropdown();
+document.getElementById("categoryTask").addEventListener("change", updateSelectedCategory);
+updateSelectedCategory();
+
+</script>
+
+</body>
+</html>
