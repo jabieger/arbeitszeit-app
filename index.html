@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -212,6 +211,24 @@ button:hover {
   margin: 4px 0;
 }
 
+.bar-chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 4px;
+  height: 100px;
+  width: 96px;
+  flex: 0 0 auto;
+  margin: var(--space-2) 0 var(--space-4);
+}
+
+.bar-chart .bar {
+  flex: 1 1 0;
+  max-width: 14px;
+  border-radius: 3px 3px 1px 1px;
+  transition: height 0.3s ease;
+}
+
 .summary-grid-container{
   display: grid;
   gap: var(--space-2);
@@ -351,7 +368,10 @@ button:hover {
   <h3> Monatsübersicht </h3>    
   <div id="monthlySummary" class="summary-grid-container"></div>
   <h3> Kategorie & Aufgaben </h3>  
-  <div id="categorySummary" class="summary-grid-container"></div>
+  <div style="display:flex; align-items:flex-end; gap: var(--space-3);">
+    <div id="categorySummary" class="summary-grid-container" style="flex:1; min-width:0;"></div>
+    <div id="categoryBarChart" class="bar-chart"></div>
+  </div>
 </div>
 
 <div class="card">
@@ -593,6 +613,14 @@ function renderSummaries() {
 
   const categoryDiv = document.getElementById("categorySummary");    
   categoryDiv.innerHTML = "";
+  const barChartDiv = document.getElementById("categoryBarChart");
+  barChartDiv.innerHTML = "";
+
+  const maxCategoryMinutes = Math.max(...categories.map(c => {
+    const t = categoryTaskSummary[c];
+    if (!t) return 0;
+    return Object.values(t).reduce((a, b) => a + b, 0);
+  }));
 
     categories.forEach(category => {
   if (!categoryTaskSummary[category]) return;
@@ -603,17 +631,16 @@ function renderSummaries() {
   Object.values(tasks).forEach(min => categoryTotal += min);
 
   const col = getCategoryColor(category);
-  const maxCategoryMinutes = Math.max(...categories.map(c => {
-    const t = categoryTaskSummary[c];
-    if (!t) return 0;
-    return Object.values(t).reduce((a, b) => a + b, 0);
-  }));
   const pct = maxCategoryMinutes ? (categoryTotal / maxCategoryMinutes * 100) : 0;
+
+  barChartDiv.innerHTML += `
+    <div class="bar" title="${category}: ${(categoryTotal/60).toFixed(2)} h" style="height:${pct}%; background:${col};"></div>
+  `;
 
   categoryDiv.innerHTML += `
     <div class="cell-label" style="margin-top:15px;"> <strong>${category}</strong> </div> 
     <div class="cell-value" style="margin-top:15px;"> <strong>${(categoryTotal/60).toFixed(2)} h</strong> </div>
-    <div class="bar-track" style="margin-top:15px;"><div style="width:${pct}%; background:${col};"></div></div>
+    <div></div>
   `;
 
   // Aufgaben optional auch sortieren:
