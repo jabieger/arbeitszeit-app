@@ -214,12 +214,38 @@ button:hover {
 
 .summary-grid-container{
   display: grid;
-  gap: var(--space-1);
-  column-gap: var(--space-5);  
-  grid-template-columns: auto auto auto;
+  gap: var(--space-2);
+  column-gap: var(--space-3);  
+  grid-template-columns: max-content max-content 1fr;
   justify-content: left;
   align-items: center;
   font-size: 0.9rem;
+}
+
+.cell-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}
+
+.cell-value {
+  white-space: nowrap;
+  text-align: right;
+}
+
+.bar-track {
+  width: 100%;
+  height: 8px;
+  background: var(--surface-alt);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bar-track > div {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
 }
 
 .grid-container{
@@ -257,25 +283,6 @@ button:hover {
     width: 100%; 
     border-color: grey;
     background-color:white;
-}
-
-.stripe-diagram {
-    display: flex;
-    column-gap: var(--space-1);
-    align-items: flex-end;
-}
-
-.bar-v {
-  width: 26px;
-  border-radius: 6px 6px 2px 2px;
-  transition: height 0.3s ease;
-}
-
-.bar-h {
-  height: 8px;
-  border-radius: 4px;
-  background: var(--accent);
-  transition: width 0.3s ease;
 }
 
       
@@ -344,15 +351,7 @@ button:hover {
   <h3> Monatsübersicht </h3>    
   <div id="monthlySummary" class="summary-grid-container"></div>
   <h3> Kategorie & Aufgaben </h3>  
-  <div style="
-    display: flex;
-    column-gap: 1rem;
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-      ">
-      <div id="categorySummaryDiagram" class="stripe-diagram"></div>
-      <div id="categorySummary" class="summary-grid-container"></div>
-  </div>
+  <div id="categorySummary" class="summary-grid-container"></div>
 </div>
 
 <div class="card">
@@ -581,10 +580,11 @@ function renderSummaries() {
   const maxMonthMinutes = Math.max(...Object.values(monthly).map(m => m.minutes));
   Object.keys(monthly).sort().forEach(key => {
     const { label, minutes } = monthly[key];
+    const pct = maxMonthMinutes ? (minutes / maxMonthMinutes * 100) : 0;
     monthlyDiv.innerHTML += `
-    <div>${label}: </div> 
-    <div>${(minutes/60).toFixed(2)} h</div>
-    <div class="bar-h" style="width: ${minutes/maxMonthMinutes*160}px;"></div>
+    <div class="cell-label">${label}</div> 
+    <div class="cell-value">${(minutes/60).toFixed(2)} h</div>
+    <div class="bar-track"><div style="width:${pct}%; background: var(--accent);"></div></div>
     `;
   });
 
@@ -593,8 +593,6 @@ function renderSummaries() {
 
   const categoryDiv = document.getElementById("categorySummary");    
   categoryDiv.innerHTML = "";
-  const categoryDiagramDiv = document.getElementById("categorySummaryDiagram");    
-  categoryDiagramDiv.innerHTML = "";
 
     categories.forEach(category => {
   if (!categoryTaskSummary[category]) return;
@@ -604,17 +602,18 @@ function renderSummaries() {
   let categoryTotal = 0;
   Object.values(tasks).forEach(min => categoryTotal += min);
 
-  // Balkendiagramm
   const col = getCategoryColor(category);
-
-  categoryDiagramDiv.innerHTML += `
-    <div class="bar-v" style="background-color: ${hexToRgba(col, 0.85)}; height: ${categoryTotal/8}px;"></div>
-  `;
+  const maxCategoryMinutes = Math.max(...categories.map(c => {
+    const t = categoryTaskSummary[c];
+    if (!t) return 0;
+    return Object.values(t).reduce((a, b) => a + b, 0);
+  }));
+  const pct = maxCategoryMinutes ? (categoryTotal / maxCategoryMinutes * 100) : 0;
 
   categoryDiv.innerHTML += `
-    <div style="margin-top:15px;"> <strong>${category}: </strong> </div> 
-    <div style="margin-top:15px;"> <strong> ${(categoryTotal/60).toFixed(2)} h </strong> </div>
-    <div></div>
+    <div class="cell-label" style="margin-top:15px;"> <strong>${category}</strong> </div> 
+    <div class="cell-value" style="margin-top:15px;"> <strong>${(categoryTotal/60).toFixed(2)} h</strong> </div>
+    <div class="bar-track" style="margin-top:15px;"><div style="width:${pct}%; background:${col};"></div></div>
   `;
 
   // Aufgaben optional auch sortieren:
@@ -624,8 +623,8 @@ function renderSummaries() {
     if (!tasks[task]) return;
 
     categoryDiv.innerHTML += `
-      <div style="padding-left:20px;"> ${task || "(keine Aufgabe)"}: </div>
-      <div> ${(tasks[task]/60).toFixed(2)} h </div>
+      <div class="cell-label" style="padding-left:20px;"> ${task || "(keine Aufgabe)"} </div>
+      <div class="cell-value">${(tasks[task]/60).toFixed(2)} h</div>
       <div></div>
     `;
   });
