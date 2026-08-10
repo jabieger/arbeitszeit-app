@@ -134,7 +134,7 @@ input, select {
   border: 1px solid var(--border);
   background: var(--surface);
 }
-
+      
 .dateselect{
     padding: 0px;
   }
@@ -184,7 +184,7 @@ button:hover {
 .quick-buttons{
     margin-bottom: 0px;
     display: flex;
-    gap: var(--space-2);
+    gap: var(--space-2);   
     width: 100%;
     flex-wrap: wrap;
 }
@@ -195,11 +195,11 @@ button:hover {
     padding-left: 5px;
     padding-right: 5px;
     background: var(--accent);
-    color: white;
+    color: #ffffff;
     }
 
 .quick-buttons button:hover {
-  background: #CBE6E2;
+  filter: brightness(0.92);
 }
 
 
@@ -215,7 +215,7 @@ button:hover {
 .summary-grid-container{
   display: grid;
   gap: var(--space-1);
-  column-gap: var(--space-5);
+  column-gap: var(--space-5);  
   grid-template-columns: auto auto auto;
   justify-content: left;
   align-items: center;
@@ -226,7 +226,7 @@ button:hover {
   display: grid;
   gap: var(--space-4);
   grid-template-columns: 1fr 1fr;
-  justify-content: space-between;
+  justify-content: space-between; 
 }
 
 .entries-header {
@@ -253,8 +253,8 @@ button:hover {
 }
 
 .categoryEditor input {
-    height: 48px;
-    width: 100%;
+    height: 48px; 
+    width: 100%; 
     border-color: grey;
     background-color:white;
 }
@@ -278,7 +278,7 @@ button:hover {
   transition: width 0.3s ease;
 }
 
-
+      
   </style>
 </head>
 <body>
@@ -303,7 +303,7 @@ button:hover {
         <label>Kategorie & Aufgabe</label>
         <select id="categoryTask"></select>
     </div>
-
+        
     <div>
         <label>Datum</label>
         <input class="dateselect" type="date" id="date">
@@ -327,8 +327,8 @@ button:hover {
     <div id="customTimeContainer" style="display:none; grid-column-end: span 2;">
       <label>Dauer eingeben:</label>
         <input type="number" id="customTime" placeholder="Minuten" style="
-            height: 48px;
-            width: 100%;
+            height: 48px; 
+            width: 100%; 
             border-color: grey;
             background-color:white;
             margin-bottom: 10px;">
@@ -341,9 +341,9 @@ button:hover {
   <h2>Auswertung</h2>
   <div id="totalSummary" class="summary"></div>
   <div id="weeklySummary" class="summary" style="display:none;"></div>
-  <h3> Monatsübersicht </h3>
+  <h3> Monatsübersicht </h3>    
   <div id="monthlySummary" class="summary-grid-container"></div>
-  <h3> Kategorie & Aufgaben </h3>
+  <h3> Kategorie & Aufgaben </h3>  
   <div style="
     display: flex;
     column-gap: 1rem;
@@ -373,7 +373,7 @@ button:hover {
         border: 1px solid grey;
         background-color:white;">Datei wählen</button>
     <input type="file" id="csvFile" accept=".csv" style="
-        display:none;
+        display:none;    
         ">
     </div>
 </div>
@@ -387,7 +387,7 @@ button:hover {
   </button>
 
   <div class="categoryEditor" id="categoryEditor" style="display:none; grid-column-end: span 2;">
-
+    
     <h3>Kategorien</h3>
     <div id="categoryList"></div>
 
@@ -402,9 +402,9 @@ button:hover {
       <h3>Aufgaben pro Kategorie</h3>
     <label>Kategorie auswählen</label>
     <select id="taskCategorySelect"></select>
-
+    
     <div id="taskList"></div>
-
+    
     <div style="margin-top:20px;">
       <input type="text" id="newTask" placeholder="Neue Aufgabe">
       <button onclick="addTask()" style="width:100%; margin-top:10px;">
@@ -524,8 +524,8 @@ function renderSummaries() {
   let monthly = {};  // key: "YYYY-MM" -> { label, minutes }
   let total = 0;
 
-  let categoryTaskSummary = {};
-// Struktur: { Kategorie: { Aufgabe: Minuten } }
+  let categoryTaskSummary = {}; 
+// Struktur: { Kategorie: { Aufgabe: Minuten } } 
 
 
   entries.forEach(entry => {
@@ -549,24 +549,24 @@ function renderSummaries() {
 
     if (!monthly[monthKey]) monthly[monthKey] = { label: monthLabel, minutes: 0 };
     monthly[monthKey].minutes += entry.time;
-
+      
     total += entry.time;
 
     // Kategorie + Aufgabe
     if (!categoryTaskSummary[entry.category]) {
       categoryTaskSummary[entry.category] = {};
     }
-
+    
     if (!categoryTaskSummary[entry.category][entry.task]) {
       categoryTaskSummary[entry.category][entry.task] = 0;
     }
 
-    categoryTaskSummary[entry.category][entry.task] += entry.time;
+    categoryTaskSummary[entry.category][entry.task] += entry.time; 
   });
 
   totalDiv.innerHTML = `
-    <div style="background: white; border-radius: var(--radius-md); padding: 0px;">
-      <div style="font-size: 2.25rem; font-weight: 700; color: black; letter-spacing: -0.02em; line-height: 1;">${(total/60).toFixed(2)} h</div>
+    <div style="padding: 4px 0 20px;">
+      <div style="font-size: 2.25rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; line-height: 1;">${(total/60).toFixed(2)} h</div>
       <div style="font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-secondary); margin-top: 6px;">Gesamtzeit</div>
     </div>
   `;
@@ -582,7 +582,7 @@ function renderSummaries() {
   Object.keys(monthly).sort().forEach(key => {
     const { label, minutes } = monthly[key];
     monthlyDiv.innerHTML += `
-    <div>${label}: </div>
+    <div>${label}: </div> 
     <div>${(minutes/60).toFixed(2)} h</div>
     <div class="bar-h" style="width: ${minutes/maxMonthMinutes*160}px;"></div>
     `;
@@ -591,9 +591,9 @@ function renderSummaries() {
     // ------------------------
     // Kategorie-Auswertung
 
-  const categoryDiv = document.getElementById("categorySummary");
+  const categoryDiv = document.getElementById("categorySummary");    
   categoryDiv.innerHTML = "";
-  const categoryDiagramDiv = document.getElementById("categorySummaryDiagram");
+  const categoryDiagramDiv = document.getElementById("categorySummaryDiagram");    
   categoryDiagramDiv.innerHTML = "";
 
     categories.forEach(category => {
@@ -612,7 +612,7 @@ function renderSummaries() {
   `;
 
   categoryDiv.innerHTML += `
-    <div style="margin-top:15px;"> <strong>${category}: </strong> </div>
+    <div style="margin-top:15px;"> <strong>${category}: </strong> </div> 
     <div style="margin-top:15px;"> <strong> ${(categoryTotal/60).toFixed(2)} h </strong> </div>
     <div></div>
   `;
@@ -903,9 +903,9 @@ function importCSV(file) {
         if (!id || !date || !category || !time) return;
 
         const minutes = parseInt(time?.trim());
-
+        
         if (isNaN(minutes)) return;
-
+        
         const entry = {
           id: id.trim(),
           date: date.trim(),
@@ -950,7 +950,7 @@ function toggleCustomTime() {
   }
 }
 
-
+    
 
 function renderCategoryTaskDropdown() {
   const select = document.getElementById("categoryTask");
@@ -980,7 +980,7 @@ function renderCategoryTaskDropdown() {
     select.appendChild(optgroup);
   });
 }
-
+    
     function toggleCategoryEditor() {
   const div = document.getElementById("categoryEditor");
   div.style.display = div.style.display === "none" ? "block" : "none";
@@ -1057,14 +1057,14 @@ function deleteCategory(index) {
     function renderTaskCategorySelect() {
       const select = document.getElementById("taskCategorySelect");
       select.innerHTML = "";
-
+    
       categories.forEach(cat => {
         const option = document.createElement("option");
         option.value = cat;
         option.textContent = cat;
         select.appendChild(option);
       });
-
+    
       renderTaskList();
     }
 
@@ -1072,18 +1072,18 @@ function deleteCategory(index) {
       const category = document.getElementById("taskCategorySelect").value;
       const list = document.getElementById("taskList");
       list.innerHTML = "";
-
+    
       const tasks = tasksByCategory[category] || [];
-
+    
       tasks.forEach((task, index) => {
         const div = document.createElement("div");
         div.className = "entry";
-
+    
         div.innerHTML = `
           <span>${task}</span>
           <button onclick="deleteTask('${category}', ${index})">✖️</button>
         `;
-
+    
         list.appendChild(div);
       });
     }
@@ -1092,21 +1092,21 @@ function deleteCategory(index) {
       const category = document.getElementById("taskCategorySelect").value;
       const input = document.getElementById("newTask");
       const value = input.value.trim();
-
+    
       if (!value) return;
-
+    
       if (!tasksByCategory[category]) {
         tasksByCategory[category] = [];
       }
-
+    
       if (tasksByCategory[category].includes(value)) {
         alert("Aufgabe existiert bereits.");
         return;
       }
-
+    
       tasksByCategory[category].push(value);
       saveTasks();
-
+    
       input.value = "";
       renderTaskList();
     }
@@ -1115,7 +1115,7 @@ function deleteCategory(index) {
       tasksByCategory[category].splice(index, 1);
       saveTasks();
       renderTaskList();
-        renderCategoryTaskDropdown();
+        renderCategoryTaskDropdown();    
     }
 
 function updateSelectedCategory() {
@@ -1131,6 +1131,12 @@ function updateSelectedCategory() {
   const header = document.getElementById("headerSelectedCat");
   header.textContent = category;
   header.style.color = getCategoryColor(category);
+
+  const catColor = getCategoryColor(category);
+  document.querySelectorAll(".quick-buttons button").forEach(btn => {
+    btn.style.background = catColor;
+    btn.style.color = "#ffffff";
+  });
 }
 
 renderCategoryTaskDropdown();
