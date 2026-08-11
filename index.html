@@ -139,12 +139,12 @@ input, select {
   }
 
 button {
-  border: 1px solid var(--border);
+  border: none;
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: background 0.15s ease, transform 0.1s ease;
   font-weight: 600;
-  background: var(--surface);
+  background: var(--surface-alt);
 }
 
 button:active {
@@ -313,7 +313,7 @@ button:hover {
   padding: 9px 16px;
   border-radius: 999px;
   border: 1px solid var(--border);
-  background: var(--surface-alt);
+  background: var(--surface);
   color: var(--text);
   font-size: 0.85rem;
   font-weight: 600;
@@ -349,6 +349,8 @@ button:hover {
   font-size: 0.9rem;
   line-height: 1;
   color: var(--text-secondary);
+  background: var(--surface);
+  border: 1px solid var(--border);
 }
 
 .note-row input {
