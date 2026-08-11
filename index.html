@@ -139,12 +139,12 @@ input, select {
   }
 
 button {
-  border: 1px solid var(--border);
+  border: none;
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: background 0.15s ease, transform 0.1s ease;
   font-weight: 600;
-  background: var(--surface);
+  background: var(--surface-alt);
 }
 
 button:active {
@@ -194,6 +194,8 @@ button:hover {
     min-width: 56px;
     padding-left: 5px;
     padding-right: 5px;
+    background: var(--surface);
+  border: 1px solid #8d8d8d;
     }
 
 .quick-buttons button:hover {
