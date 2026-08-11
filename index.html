@@ -139,17 +139,12 @@ input, select {
   }
 
 button {
-  border: none;
+  border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: background 0.15s ease, transform 0.1s ease;
   font-weight: 600;
-  background: var(--surface-alt);
-}
-
-#noteDropdownBtn{
-  background: white;
-    border: 1px solid var(--border);
+  background: var(--surface);
 }
 
 button:active {
@@ -199,8 +194,6 @@ button:hover {
     min-width: 56px;
     padding-left: 5px;
     padding-right: 5px;
-  border: 1px solid gray;
-    background: var(--surface);
     }
 
 .quick-buttons button:hover {
@@ -398,6 +391,40 @@ button:hover {
   color: var(--text-secondary);
 }
 
+.field-tabs {
+  display: flex;
+  gap: 1.5rem;
+  border-bottom: 0.5px solid var(--border);
+  margin-bottom: var(--space-3);
+}
+
+.field-tab {
+  border: none;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  width: auto;
+  height: auto;
+  padding: 8px 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.field-tab:hover {
+  background: transparent;
+  color: var(--text);
+}
+
+.field-tab.active {
+  color: var(--text);
+  border-bottom-color: var(--text);
+}
+
+.field-panel {
+  margin-bottom: var(--space-1);
+}
+
       
   </style>
 </head>
@@ -418,17 +445,22 @@ button:hover {
     </div>
 
     <div style="grid-column-end: span 2;">
-        <label>Notiz</label>
-        <div class="note-row">
-          <button type="button" id="noteDropdownBtn" class="note-dropdown-btn" onclick="toggleNoteDropdown()" aria-label="Vorhandene Notizen anzeigen">▾</button>
-          <input type="text" id="noteInput" autocomplete="off" placeholder="z. B. Rückfrage von Kollege">
-          <div id="noteDropdownList" class="note-dropdown-list" style="display:none;"></div>
+        <div class="field-tabs">
+          <button type="button" id="tabNotizBtn" class="field-tab" onclick="toggleFieldTab('notiz')">Notiz</button>
+          <button type="button" id="tabDatumBtn" class="field-tab" onclick="toggleFieldTab('datum')">Datum</button>
         </div>
-    </div>
 
-    <div style="grid-column-end: span 2;">
-        <label>Datum</label>
-        <input class="dateselect" type="date" id="date">
+        <div id="panelNotiz" class="field-panel" style="display:none;">
+          <div class="note-row">
+            <button type="button" id="noteDropdownBtn" class="note-dropdown-btn" onclick="toggleNoteDropdown()" aria-label="Vorhandene Notizen anzeigen">▾</button>
+            <input type="text" id="noteInput" autocomplete="off" placeholder="z. B. Rückfrage von Kollege">
+            <div id="noteDropdownList" class="note-dropdown-list" style="display:none;"></div>
+          </div>
+        </div>
+
+        <div id="panelDatum" class="field-panel" style="display:none;">
+          <input class="dateselect" type="date" id="date">
+        </div>
     </div>
 
     <div style="grid-column-end: span 2;">
@@ -787,6 +819,26 @@ function renderEntries() {
   function generateId() {
       return Date.now() + "_" + Math.floor(Math.random() * 1000000);
     }
+
+// =========================
+// Notiz-/Datum-Tabs (ein-/ausklappbar)
+// =========================
+
+let openFieldTab = null; // "notiz" | "datum" | null
+
+function toggleFieldTab(tab) {
+  openFieldTab = (openFieldTab === tab) ? null : tab;
+
+  document.getElementById("panelNotiz").style.display = (openFieldTab === "notiz") ? "block" : "none";
+  document.getElementById("panelDatum").style.display = (openFieldTab === "datum") ? "block" : "none";
+
+  document.getElementById("tabNotizBtn").classList.toggle("active", openFieldTab === "notiz");
+  document.getElementById("tabDatumBtn").classList.toggle("active", openFieldTab === "datum");
+
+  if (openFieldTab !== "notiz") {
+    closeNoteDropdown();
+  }
+}
 
 // =========================
 // Kategorie-Chips & Notiz-Dropdown
