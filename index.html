@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAFCUlEQVR4nO3dQW7cOBCFYTrIveKrZB0fx+v4Kj5aFgSERrqfmlKLrFfk/yGrQTAjlX6XZI2Tfvvz91cBHvkRfQDwRRyQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAekfx0gIWQn966sAAAAASUVORK5CYII=">
   <style>
 :root {
-  --bg: #F1F6F5;
+  --bg: #f8fafc;
   --surface: #FFFFFF;
   --surface-alt: #F1F3F2;
   --text: #16241F;
@@ -741,7 +741,7 @@ function renderCategoryChips() {
   if (categories.length === 0) {
     container.innerHTML = `<div class="chip-empty">Keine Kategorien vorhanden</div>`;
     renderNoteSuggestions();
-    updateSelectedCategoryHeader();
+    //updateSelectedCategoryHeader();
     return;
   }
 
@@ -761,7 +761,7 @@ function renderCategoryChips() {
   });
 
   renderNoteSuggestions();
-  updateSelectedCategoryHeader();
+  //updateSelectedCategoryHeader();
 }
 
 function selectCategory(cat) {
