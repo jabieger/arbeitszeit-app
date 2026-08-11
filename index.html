@@ -194,8 +194,7 @@ button:hover {
     min-width: 56px;
     padding-left: 5px;
     padding-right: 5px;
-    background: var(--surface);
-  border: 1px solid #8d8d8d;
+  border-color: gray;
     }
 
 .quick-buttons button:hover {
@@ -337,6 +336,62 @@ button:hover {
   padding: 9px 0;
 }
 
+.note-row {
+  position: relative;
+  display: flex;
+  gap: var(--space-2);
+}
+
+.note-dropdown-btn {
+  flex: 0 0 46px;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  font-size: 0.9rem;
+  line-height: 1;
+  color: var(--text-secondary);
+}
+
+.note-row input {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.note-dropdown-list {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  max-height: 220px;
+  overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 8px 24px rgba(16,24,40,0.10);
+  z-index: 30;
+}
+
+.note-dropdown-item {
+  padding: 11px 14px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+}
+
+.note-dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.note-dropdown-item:hover {
+  background: var(--surface-alt);
+}
+
+.note-dropdown-empty {
+  padding: 11px 14px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
       
   </style>
 </head>
@@ -358,8 +413,11 @@ button:hover {
 
     <div style="grid-column-end: span 2;">
         <label>Notiz</label>
-        <input type="text" id="noteInput" list="noteSuggestions" autocomplete="off" placeholder="z. B. Rückfrage von Kollege">
-        <datalist id="noteSuggestions"></datalist>
+        <div class="note-row">
+          <button type="button" id="noteDropdownBtn" class="note-dropdown-btn" onclick="toggleNoteDropdown()" aria-label="Vorhandene Notizen anzeigen">▾</button>
+          <input type="text" id="noteInput" autocomplete="off" placeholder="z. B. Rückfrage von Kollege">
+          <div id="noteDropdownList" class="note-dropdown-list" style="display:none;"></div>
+        </div>
     </div>
 
     <div style="grid-column-end: span 2;">
@@ -725,7 +783,7 @@ function renderEntries() {
     }
 
 // =========================
-// Kategorie-Chips & Notiz-Vorschläge
+// Kategorie-Chips & Notiz-Dropdown
 // =========================
 
 let selectedCategory = null;
@@ -741,8 +799,7 @@ function renderCategoryChips() {
 
   if (categories.length === 0) {
     container.innerHTML = `<div class="chip-empty">Keine Kategorien vorhanden</div>`;
-    renderNoteSuggestions();
-    //updateSelectedCategoryHeader();
+    closeNoteDropdown();
     return;
   }
 
@@ -761,8 +818,7 @@ function renderCategoryChips() {
     container.appendChild(btn);
   });
 
-  renderNoteSuggestions();
-  //updateSelectedCategoryHeader();
+  closeNoteDropdown();
 }
 
 function selectCategory(cat) {
@@ -772,13 +828,11 @@ function selectCategory(cat) {
   renderCategoryChips();
 }
 
-function renderNoteSuggestions() {
-  const datalist = document.getElementById("noteSuggestions");
-  datalist.innerHTML = "";
+// Durchsucht immer live alle vorhandenen Einträge (+ manuell gepflegte
+// Vorschläge) der aktuell gewählten Kategorie nach bereits genutzten Notizen.
+function getNoteSuggestions() {
+  if (!selectedCategory) return [];
 
-  if (!selectedCategory) return;
-
-  // Vorschläge = manuell gepflegte Liste + bereits verwendete Notizen dieser Kategorie
   const suggestions = new Set();
 
   (tasksByCategory[selectedCategory] || []).forEach(t => {
@@ -789,12 +843,66 @@ function renderNoteSuggestions() {
     .filter(e => e.category === selectedCategory && e.task)
     .forEach(e => suggestions.add(e.task));
 
+  return Array.from(suggestions);
+}
+
+function renderNoteDropdown() {
+  const list = document.getElementById("noteDropdownList");
+  list.innerHTML = "";
+
+  if (!selectedCategory) {
+    list.innerHTML = `<div class="note-dropdown-empty">Bitte zuerst eine Kategorie wählen</div>`;
+    return;
+  }
+
+  const suggestions = getNoteSuggestions();
+
+  if (suggestions.length === 0) {
+    list.innerHTML = `<div class="note-dropdown-empty">Noch keine Notizen vorhanden</div>`;
+    return;
+  }
+
   suggestions.forEach(s => {
-    const option = document.createElement("option");
-    option.value = s;
-    datalist.appendChild(option);
+    const item = document.createElement("div");
+    item.className = "note-dropdown-item";
+    item.textContent = s;
+    item.onclick = () => selectNoteSuggestion(s);
+    list.appendChild(item);
   });
 }
+
+function toggleNoteDropdown() {
+  const list = document.getElementById("noteDropdownList");
+  const isOpen = list.style.display === "block";
+
+  if (isOpen) {
+    closeNoteDropdown();
+  } else {
+    renderNoteDropdown();
+    list.style.display = "block";
+  }
+}
+
+function closeNoteDropdown() {
+  const list = document.getElementById("noteDropdownList");
+  if (list) list.style.display = "none";
+}
+
+function selectNoteSuggestion(value) {
+  if (noteInput) {
+    noteInput.value = value;
+    noteInput.focus();
+  }
+  closeNoteDropdown();
+}
+
+// Dropdown schließen, wenn außerhalb geklickt wird
+document.addEventListener("click", (event) => {
+  const row = document.querySelector(".note-row");
+  if (row && !row.contains(event.target)) {
+    closeNoteDropdown();
+  }
+});
 
 function updateSelectedCategoryHeader() {
   const header = document.getElementById("headerSelectedCat");
@@ -834,7 +942,6 @@ function addTime(minutes) {
 
   entries.push(newEntry);
   saveEntries();
-  renderNoteSuggestions();
   renderEntries();
 }
 
@@ -1237,18 +1344,12 @@ function deleteCategory(index) {
     
       input.value = "";
       renderTaskList();
-      if (category === selectedCategory) {
-        renderNoteSuggestions();
-      }
     }
 
     function deleteTask(category, index) {
       tasksByCategory[category].splice(index, 1);
       saveTasks();
       renderTaskList();
-      if (category === selectedCategory) {
-        renderNoteSuggestions();
-      }
     }
 
 renderCategoryChips();
