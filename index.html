@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Arbeitszeit">
   <meta name="theme-color" content="#6b9e3f">
-  <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAFCUlEQVR4nO3dQW7cOBCFYTrIveKrZB0fx+v4Kj5aFgSERrqfmlKLrFfk/yGrQTAjlX6XZI2Tfvvz91cBHvkRfQDwRRyQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAPSz+gDCPP5+7v9N398vfc6DmNvi/xB6kMptFghl5njuDwIZdZQJoxjWBP3JqtknjgCm7g3RyUzxGGVxa3sieSOwzaLW3kTyRpHiixuZUwkXxzpsriVK5Fkb0hTl1GyHX+azRH7FmvNd2g54rjk2lx4PdyOpxP3OF68DAMugP8RnmYdxytzHzz0RIfazjeOc+MOH3TSw37IMY4J5jvBKRTDOE6M1W2mm+zn4hXH0WlajVLJe1JGL8HyDnHf0eP0eVHmsjlW+KG9dOdosTnSTe2c2HeyJ8THsUgZVa4+0vz0efYsNvVEwi98i+DN0TijacrYNJ5RbEORD6QmZewcRuB/euRhKGGbw3wuY5jvj/gH0h1zl1E5n2NMHC1fCs5Tu1bLmYYsj4A4KOOeZx/WtxXEGh0Ha0MxXB5D46CMfW59eN1WVi6jsprAuDhSvDBOYdgkjTaH1RdNIJ85DIrjaew+E3HwdBpjlofR5oCbEXGwNk5wWB5sDkjd42BtnBa+PNgckILjYG3si51P3zh48dVb1wlzW4EUGQf3lBaBU+oYB/eUMfrNOWxzsDbaLffT5/BHHJB6xcEDx0idph2zOXjgOCpkYtxWIBEHJOKARByQusSx//DM0+g5+3Pr8Q0LmwMScUAiDkirx7F/q178PW+av02wh5Zrv/2eBZ+jl47jkAUrIY7DbvfN3KEQx0vmXifEcY0p18nS3610uoqfv7/rrx7/8pFW3xwfX+/9rmL2dbL05qgyXrYxiKOUR318fL3XX53+/SmsflvZqOt3+88neIw4pNenJsz9f+1DPo5u/EjZHGcssk6I41VbKKqSvGuSOC4z3zohji6erpMUfD9vZQ5X3VOm+ryVvDfajDpNm5dgkIgDkvunQ6JM+emQPHaM0W/OkbcVlkeLwCnxzAGpbxzcWXrrOuHgzcGdZV/sfLitQOoeR/jnQuQV/mkkbA5II+JgeZwQvjYKmwM7BsXB8jjEYW0Uq81BH5XPHMbFwQuxqwybpNHmKE5fNFGsJjA0jpbkraYzWMu5j1zAozcHfShuZRS32wqsBMTB8rhnuDaK8+etrNOHZxnF/LayQh/O5+j+6ZDOs3td49mt+OmQi/dhXkYJv60s24d/GSXRH6Su05zgHXyi0OMfSA9d70STfejQ8Yd/JcTHUZbpI1cZpd/fCXZCyF+0NUbSU7PYHNXRiWRZIUnLKFabozpxyX2m+Z/s52IXRzm7EqzGOsEpFM84qqTzTXrYD/nGUV57qhg87kSH2s46jvLyU+eAufsf4WnucVSXfGNy4WVwO55OcsRROnzjGvvmzb+MkiiOKsu7jR0psqiMXoK1SDTZh3Idf7LNsUm3QnJlUWWNo0qRSMYsqtxxVLaJ5M2imiGOyiqR7FlU88SxCaxkjiY2E8axGVbJZE1sZo7j1ppvsV60Shz30v3Q3njrxoGnkr0hxUjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAekfx0gIWQn966sAAAAASUVORK5CYII=">
+  <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAFCUlEQVR4nO3dQW7cOBCFYTrIveKrZB0fx+v4Kj5aFgSERrqfmlKLrFfk/yGrQTAjlX6XZI2Tfvvz91cBHvkRfQDwRRyQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAekfx0gIWQn966sAAAAASUVORK5CYII=">
   <style>
 :root {
   --bg: #F1F6F5;
@@ -302,6 +302,40 @@ button:hover {
     background-color:white;
 }
 
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip {
+  width: auto;
+  height: auto;
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface-alt);
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.chip:hover {
+  background: #E4E7EC;
+}
+
+.chip.active {
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.chip-empty {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  padding: 9px 0;
+}
+
       
   </style>
 </head>
@@ -316,24 +350,21 @@ button:hover {
 
     <div class="grid-container">
 
-    <!--
-    <div>
-        <label>Gewählte Kategorie</label>
-        <button style="text-align:left; padding-left: 20px;" id="selectedCategory"></button>
+    <div style="grid-column-end: span 2;">
+        <label>Kategorie</label>
+        <div class="chip-group" id="categoryChips"></div>
     </div>
-    -->
 
-    <div>
-        <label>Kategorie & Aufgabe</label>
-        <select id="categoryTask"></select>
+    <div style="grid-column-end: span 2;">
+        <label>Notiz</label>
+        <input type="text" id="noteInput" list="noteSuggestions" autocomplete="off" placeholder="z. B. Rückfrage von Kollege">
+        <datalist id="noteSuggestions"></datalist>
     </div>
-        
-    <div>
+
+    <div style="grid-column-end: span 2;">
         <label>Datum</label>
         <input class="dateselect" type="date" id="date">
     </div>
-
-
 
     <div style="grid-column-end: span 2;">
         <label>Schnellauswahl</label>
@@ -418,16 +449,16 @@ button:hover {
     </div>
 
 
-      <h3>Aufgaben pro Kategorie</h3>
+      <h3>Notiz-Vorschläge pro Kategorie</h3>
     <label>Kategorie auswählen</label>
     <select id="taskCategorySelect"></select>
     
     <div id="taskList"></div>
     
     <div style="margin-top:20px;">
-      <input type="text" id="newTask" placeholder="Neue Aufgabe">
+      <input type="text" id="newTask" placeholder="Neuer Vorschlag">
       <button onclick="addTask()" style="width:100%; margin-top:10px;">
-        Aufgabe hinzufügen
+        Vorschlag hinzufügen
       </button>
     </div>
 
@@ -692,22 +723,117 @@ function renderEntries() {
       return Date.now() + "_" + Math.floor(Math.random() * 1000000);
     }
 
+// =========================
+// Kategorie-Chips & Notiz-Vorschläge
+// =========================
+
+let selectedCategory = null;
+const noteInput = document.getElementById("noteInput");
+
+function renderCategoryChips() {
+  const container = document.getElementById("categoryChips");
+  container.innerHTML = "";
+
+  if (!selectedCategory || !categories.includes(selectedCategory)) {
+    selectedCategory = categories[0] || null;
+  }
+
+  if (categories.length === 0) {
+    container.innerHTML = `<div class="chip-empty">Keine Kategorien vorhanden</div>`;
+    renderNoteSuggestions();
+    updateSelectedCategoryHeader();
+    return;
+  }
+
+  categories.forEach(cat => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    const isActive = cat === selectedCategory;
+    btn.className = "chip" + (isActive ? " active" : "");
+    btn.textContent = cat;
+    if (isActive) {
+      const col = getCategoryColor(cat);
+      btn.style.background = col;
+      btn.style.borderColor = col;
+    }
+    btn.onclick = () => selectCategory(cat);
+    container.appendChild(btn);
+  });
+
+  renderNoteSuggestions();
+  updateSelectedCategoryHeader();
+}
+
+function selectCategory(cat) {
+  if (cat === selectedCategory) return;
+  selectedCategory = cat;
+  if (noteInput) noteInput.value = "";
+  renderCategoryChips();
+}
+
+function renderNoteSuggestions() {
+  const datalist = document.getElementById("noteSuggestions");
+  datalist.innerHTML = "";
+
+  if (!selectedCategory) return;
+
+  // Vorschläge = manuell gepflegte Liste + bereits verwendete Notizen dieser Kategorie
+  const suggestions = new Set();
+
+  (tasksByCategory[selectedCategory] || []).forEach(t => {
+    if (t) suggestions.add(t);
+  });
+
+  entries
+    .filter(e => e.category === selectedCategory && e.task)
+    .forEach(e => suggestions.add(e.task));
+
+  suggestions.forEach(s => {
+    const option = document.createElement("option");
+    option.value = s;
+    datalist.appendChild(option);
+  });
+}
+
+function updateSelectedCategoryHeader() {
+  const header = document.getElementById("headerSelectedCat");
+
+  if (!selectedCategory) {
+    header.textContent = "Neuer Eintrag";
+    header.style.color = "";
+    return;
+  }
+
+  header.textContent = selectedCategory;
+  const col = getCategoryColor(selectedCategory);
+  header.style.color = col;
+
+  document.querySelectorAll(".quick-buttons button").forEach(btn => {
+    btn.style.background = col;
+    btn.style.color = "#ffffff";
+  });
+}
+
 function addTime(minutes) {
-  const combined = document.getElementById("categoryTask").value;
-  const [category, task] = combined.split("||");
+  if (!selectedCategory) {
+    alert("Bitte zuerst eine Kategorie auswählen.");
+    return;
+  }
 
   const date = dateInput.value;
+  const note = noteInput ? noteInput.value.trim() : "";
 
   const newEntry = {
     id: generateId(),
-    category,
-    task,
+    category: selectedCategory,
+    task: note,
     date,
     time: minutes
   };
 
   entries.push(newEntry);
   saveEntries();
+  renderNoteSuggestions();
   renderEntries();
 }
 
@@ -955,7 +1081,7 @@ function importCSV(file) {
     saveTasks();
     saveEntries();
 
-    renderCategoryTaskDropdown();
+    renderCategoryChips();
     renderCategoryList();
     renderTaskCategorySelect();
     renderEntries();
@@ -976,36 +1102,6 @@ function toggleCustomTime() {
   }
 }
 
-    
-
-function renderCategoryTaskDropdown() {
-  const select = document.getElementById("categoryTask");
-  select.innerHTML = "";
-
-  categories.forEach(cat => {
-    const optgroup = document.createElement("optgroup");
-    optgroup.label = cat;
-
-    const tasks = tasksByCategory[cat] || [];
-
-    tasks.forEach(task => {
-      const option = document.createElement("option");
-      option.value = `${cat}||${task}`; // wichtig!
-      option.textContent = task;
-      optgroup.appendChild(option);
-    });
-
-    // Falls keine Tasks vorhanden → Kategorie selbst auswählbar
-    if (tasks.length === 0) {
-      const option = document.createElement("option");
-      option.value = `${cat}||`;
-      option.textContent = "(keine Aufgabe)";
-      optgroup.appendChild(option);
-    }
-
-    select.appendChild(optgroup);
-  });
-}
     
     function toggleCategoryEditor() {
   const div = document.getElementById("categoryEditor");
@@ -1049,7 +1145,7 @@ function addCategory() {
   categories.push(value);
   saveCategories();
   renderCategoryList();
-    renderCategoryTaskDropdown();
+    renderCategoryChips();
 
   input.value = "";
 }
@@ -1076,6 +1172,11 @@ function deleteCategory(index) {
     renderTaskCategorySelect();
   saveCategories();
   renderCategoryList();
+    if (selectedCategory === cat) {
+      selectedCategory = null;
+      if (noteInput) noteInput.value = "";
+    }
+    renderCategoryChips();
     renderEntries();
 }
 
@@ -1126,7 +1227,7 @@ function deleteCategory(index) {
       }
     
       if (tasksByCategory[category].includes(value)) {
-        alert("Aufgabe existiert bereits.");
+        alert("Vorschlag existiert bereits.");
         return;
       }
     
@@ -1135,39 +1236,21 @@ function deleteCategory(index) {
     
       input.value = "";
       renderTaskList();
+      if (category === selectedCategory) {
+        renderNoteSuggestions();
+      }
     }
 
     function deleteTask(category, index) {
       tasksByCategory[category].splice(index, 1);
       saveTasks();
       renderTaskList();
-        renderCategoryTaskDropdown();    
+      if (category === selectedCategory) {
+        renderNoteSuggestions();
+      }
     }
 
-function updateSelectedCategory() {
-  const combined = document.getElementById("categoryTask").value;
-
-  if (!combined) return;
-
-  const [category] = combined.split("||");
-
-//  const button = document.getElementById("selectedCategory");
-//  button.textContent = category;
-
-  const header = document.getElementById("headerSelectedCat");
-  header.textContent = category;
-  header.style.color = getCategoryColor(category);
-
-  const catColor = getCategoryColor(category);
-  document.querySelectorAll(".quick-buttons button").forEach(btn => {
-    btn.style.background = catColor;
-    btn.style.color = "#ffffff";
-  });
-}
-
-renderCategoryTaskDropdown();
-document.getElementById("categoryTask").addEventListener("change", updateSelectedCategory);
-updateSelectedCategory();
+renderCategoryChips();
 
 </script>
 
