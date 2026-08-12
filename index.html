@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Arbeitszeit">
   <meta name="theme-color" content="#6b9e3f">
-  <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAFCUlEQVR4nO3dQW7cOBCFYTrIveKrZB0fx+v4Kj5aFgSERrqfmlKLrFfk/yGrQTAjlX6XZI2Tfvvz91cBHvkRfQDwRRyQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAekfx0gIWQn966sAAAAASUVORK5CYII=">
+  <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAFCUlEQVR4nO3dQW7cOBCFYTrIveKrZB0fx+v4Kj5aFgSERrqfmlKLrFfk/yGrQTAjlX6XZI2Tfvvz91cBHvkRfQDwRRyQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAekfx0gIWQn966sAAAAASUVORK5CYII=">
   <style>
 :root {
   --bg: #FAF6EF;
@@ -335,61 +335,33 @@ button:hover {
   padding: 9px 0;
 }
 
-.note-row {
-  position: relative;
-  display: flex;
-  gap: var(--space-2);
-}
-
-.note-dropdown-btn {
-  flex: 0 0 46px;
-  width: 46px;
-  height: 46px;
-  padding: 0;
-  font-size: 0.9rem;
-  line-height: 1;
+/* Notiz-Pillen: bewusst anders als die gefüllten Kategorie-Chips
+   gehalten (nur Rand statt Fläche), damit beide Ebenen optisch
+   unterscheidbar bleiben. Aktive Farbe kommt inline aus der
+   Kategoriefarbe (siehe renderNotePills). */
+.note-pill {
+  width: auto;
+  height: auto;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1.5px solid var(--border);
+  background: transparent;
   color: var(--text-secondary);
-  background: var(--surface);
-  border: 1px solid var(--border);
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
-.note-row input {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
-.note-dropdown-list {
-  position: absolute;
-  top: calc(100% + 6px);
-  left: 0;
-  right: 0;
-  max-height: 220px;
-  overflow-y: auto;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  box-shadow: 0 8px 24px rgba(16,24,40,0.10);
-  z-index: 30;
-}
-
-.note-dropdown-item {
-  padding: 11px 14px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  border-bottom: 1px solid var(--border);
-}
-
-.note-dropdown-item:last-child {
-  border-bottom: none;
-}
-
-.note-dropdown-item:hover {
+.note-pill:hover {
   background: var(--surface-alt);
 }
 
-.note-dropdown-empty {
-  padding: 11px 14px;
-  font-size: 0.85rem;
+.note-pill.active {
+  background: transparent;
+}
+
+.note-pill-new {
+  border-style: dashed;
   color: var(--text-secondary);
 }
 
@@ -453,11 +425,8 @@ button:hover {
         </div>
 
         <div id="panelNotiz" class="field-panel" style="display:none;">
-          <div class="note-row">
-            <button type="button" id="noteDropdownBtn" class="note-dropdown-btn" onclick="toggleNoteDropdown()" aria-label="Vorhandene Notizen anzeigen">▾</button>
-            <input type="text" id="noteInput" autocomplete="off" placeholder="z. B. Rückfrage von Kollege">
-            <div id="noteDropdownList" class="note-dropdown-list" style="display:none;"></div>
-          </div>
+          <div class="chip-group" id="notePills"></div>
+          <input type="text" id="noteInput" autocomplete="off" placeholder="Neue Notiz eingeben" style="display:none; margin-top:10px;">
         </div>
 
         <div id="panelDatum" class="field-panel" style="display:none;">
@@ -816,6 +785,7 @@ function renderEntries() {
   });
 
   renderSummaries();
+  renderNotePills();
 }
 
   function generateId() {
@@ -836,14 +806,10 @@ function toggleFieldTab(tab) {
 
   document.getElementById("tabNotizBtn").classList.toggle("active", openFieldTab === "notiz");
   document.getElementById("tabDatumBtn").classList.toggle("active", openFieldTab === "datum");
-
-  if (openFieldTab !== "notiz") {
-    closeNoteDropdown();
-  }
 }
 
 // =========================
-// Kategorie-Chips & Notiz-Dropdown
+// Kategorie-Chips & Notiz-Pillen
 // =========================
 
 let selectedCategory = null;
@@ -859,7 +825,6 @@ function renderCategoryChips() {
 
   if (categories.length === 0) {
     container.innerHTML = `<div class="chip-empty">Keine Kategorien vorhanden</div>`;
-    closeNoteDropdown();
     return;
   }
 
@@ -877,23 +842,37 @@ function renderCategoryChips() {
     btn.onclick = () => selectCategory(cat);
     container.appendChild(btn);
   });
-
-  closeNoteDropdown();
 }
 
 function selectCategory(cat) {
   if (cat === selectedCategory) return;
   selectedCategory = cat;
-  if (noteInput) noteInput.value = "";
+  resetNoteSelection();
   renderCategoryChips();
+  renderNotePills();
 }
+
+// Notiz-Auswahl (Pillen statt Dropdown) zurücksetzen auf Standard "Allgemein"
+function resetNoteSelection() {
+  selectedNote = "Allgemein";
+  noteCustomMode = false;
+  if (noteInput) {
+    noteInput.value = "";
+    noteInput.style.display = "none";
+  }
+}
+
+let selectedNote = "Allgemein";
+let noteCustomMode = false;
 
 // Durchsucht immer live alle vorhandenen Einträge (+ manuell gepflegte
 // Vorschläge) der aktuell gewählten Kategorie nach bereits genutzten Notizen.
+// "Allgemein" steht immer an erster Stelle.
 function getNoteSuggestions() {
   if (!selectedCategory) return [];
 
   const suggestions = new Set();
+  suggestions.add("Allgemein");
 
   (tasksByCategory[selectedCategory] || []).forEach(t => {
     if (t) suggestions.add(t);
@@ -906,63 +885,77 @@ function getNoteSuggestions() {
   return Array.from(suggestions);
 }
 
-function renderNoteDropdown() {
-  const list = document.getElementById("noteDropdownList");
-  list.innerHTML = "";
+function renderNotePills() {
+  const container = document.getElementById("notePills");
+  if (!container) return;
+  container.innerHTML = "";
 
   if (!selectedCategory) {
-    list.innerHTML = `<div class="note-dropdown-empty">Bitte zuerst eine Kategorie wählen</div>`;
+    container.innerHTML = `<div class="chip-empty">Bitte zuerst eine Kategorie wählen</div>`;
     return;
   }
 
+  const col = getCategoryColor(selectedCategory);
   const suggestions = getNoteSuggestions();
 
-  if (suggestions.length === 0) {
-    list.innerHTML = `<div class="note-dropdown-empty">Noch keine Notizen vorhanden</div>`;
-    return;
-  }
+  suggestions.forEach(text => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "note-pill";
+    btn.textContent = text;
 
-  suggestions.forEach(s => {
-    const item = document.createElement("div");
-    item.className = "note-dropdown-item";
-    item.textContent = s;
-    item.onclick = () => selectNoteSuggestion(s);
-    list.appendChild(item);
+    const isActive = !noteCustomMode && selectedNote === text;
+    if (isActive) {
+      btn.classList.add("active");
+      btn.style.borderColor = col;
+      btn.style.color = col;
+    }
+
+    btn.onclick = () => selectNotePill(text);
+    container.appendChild(btn);
   });
-}
 
-function toggleNoteDropdown() {
-  const list = document.getElementById("noteDropdownList");
-  const isOpen = list.style.display === "block";
-
-  if (isOpen) {
-    closeNoteDropdown();
-  } else {
-    renderNoteDropdown();
-    list.style.display = "block";
+  const newBtn = document.createElement("button");
+  newBtn.type = "button";
+  newBtn.className = "note-pill note-pill-new" + (noteCustomMode ? " active" : "");
+  newBtn.innerHTML = `<span aria-hidden="true">+</span> Neue Notiz`;
+  if (noteCustomMode) {
+    newBtn.style.borderColor = col;
+    newBtn.style.color = col;
   }
+  newBtn.onclick = () => toggleCustomNote();
+  container.appendChild(newBtn);
 }
 
-function closeNoteDropdown() {
-  const list = document.getElementById("noteDropdownList");
-  if (list) list.style.display = "none";
-}
-
-function selectNoteSuggestion(value) {
+function selectNotePill(text) {
+  selectedNote = text;
+  noteCustomMode = false;
   if (noteInput) {
-    noteInput.value = value;
-    noteInput.focus();
+    noteInput.value = "";
+    noteInput.style.display = "none";
   }
-  closeNoteDropdown();
+  renderNotePills();
 }
 
-// Dropdown schließen, wenn außerhalb geklickt wird
-document.addEventListener("click", (event) => {
-  const row = document.querySelector(".note-row");
-  if (row && !row.contains(event.target)) {
-    closeNoteDropdown();
+function toggleCustomNote() {
+  noteCustomMode = !noteCustomMode;
+
+  if (noteCustomMode) {
+    if (noteInput) {
+      noteInput.value = "";
+      noteInput.style.display = "block";
+      noteInput.focus();
+    }
+  } else {
+    selectedNote = "Allgemein";
+    if (noteInput) {
+      noteInput.value = "";
+      noteInput.style.display = "none";
+    }
   }
-});
+
+  renderNotePills();
+}
 
 function updateSelectedCategoryHeader() {
   const header = document.getElementById("headerSelectedCat");
@@ -990,7 +983,9 @@ function addTime(minutes) {
   }
 
   const date = dateInput.value;
-  const note = noteInput ? noteInput.value.trim() : "";
+  const note = noteCustomMode
+    ? (noteInput ? noteInput.value.trim() : "")
+    : selectedNote;
 
   const newEntry = {
     id: generateId(),
@@ -1342,7 +1337,7 @@ function deleteCategory(index) {
   renderCategoryList();
     if (selectedCategory === cat) {
       selectedCategory = null;
-      if (noteInput) noteInput.value = "";
+      resetNoteSelection();
     }
     renderCategoryChips();
     renderEntries();
@@ -1413,6 +1408,7 @@ function deleteCategory(index) {
     }
 
 renderCategoryChips();
+renderNotePills();
 
 </script>
 
