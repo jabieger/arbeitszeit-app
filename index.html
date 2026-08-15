@@ -211,7 +211,7 @@ button:hover {
 }
 
 .quick-buttons button {
-      flex: 1 1 72px;
+      flex: 1 1 56px;
     min-width: 56px;
     padding-left: 5px;
     padding-right: 5px;
@@ -978,7 +978,7 @@ function renderNotePills() {
   const newBtn = document.createElement("button");
   newBtn.type = "button";
   newBtn.className = "note-pill note-pill-new" + (noteCustomMode ? " active" : "");
-  newBtn.innerHTML = `<span aria-hidden="true">+</span> Neue Notiz`;
+  newBtn.innerHTML = `<span aria-hidden="true">+</span>`;
   if (noteCustomMode) {
     newBtn.style.borderColor = col;
     newBtn.style.color = col;
